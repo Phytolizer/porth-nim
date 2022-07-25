@@ -1,0 +1,4 @@
+/porth
+*.s
+*.o
+output
