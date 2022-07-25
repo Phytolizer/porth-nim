@@ -1,7 +1,7 @@
 from opcode import OpCode
-from operation import Operation, `$`
 from process import tryRunCmd
 import emitter
+import operation
 import std/strformat
 import std/os
 
@@ -41,4 +41,4 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
     output.emit("ret")
     output.close()
 
-    tryRunCmd(fmt"gcc -o {outFilePath} {asmFilePath} {dumpFilePath}")
+    tryRunCmd("gcc", ["-o", outFilePath, asmFilePath, dumpFilePath])
