@@ -13,8 +13,8 @@ proc lexLine(filePath: string, lineNumber: int, line: string): seq[Token] =
             colEnd = line.len
         result.add(Token(
             filePath: filePath,
-            line: lineNumber,
-            column: col,
+            line: lineNumber + 1,
+            column: col + 1,
             text: line[col..<colEnd],
         ))
         col = line.find(nonSpacePattern, colEnd)
