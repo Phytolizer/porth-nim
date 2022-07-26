@@ -1,8 +1,9 @@
 from operation import Operation, plus, minus, dump, push
 from std/strutils import parseInt
+from token import Token
 
-proc parseTokenAsOp*(token: string): Operation =
-    case token
+proc parseTokenAsOp*(token: Token): Operation =
+    case token.text
     of "+":
         plus()
     of "-":
@@ -10,5 +11,5 @@ proc parseTokenAsOp*(token: string): Operation =
     of ".":
         dump()
     else:
-        let value = token.parseInt()
+        let value = token.text.parseInt()
         push(value)
