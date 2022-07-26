@@ -4,4 +4,4 @@ from parse import parseTokenAsOp
 from std/sequtils import map
 
 proc loadProgramFromFile*(path: string): seq[Operation] =
-    lexFile(path).map(parseTokenAsOp)
+  lexFile(path).map(parseTokenAsOp)

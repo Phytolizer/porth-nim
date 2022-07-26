@@ -1,6 +1,6 @@
 type OpCode* {.pure.} = enum
-    PUSH
-    PLUS
-    MINUS
-    EQUAL
-    DUMP
+  PUSH
+  PLUS
+  MINUS
+  EQUAL
+  DUMP
