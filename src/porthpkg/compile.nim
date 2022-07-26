@@ -33,6 +33,12 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
             output.emit("pop %rax")
             output.emit("sub %rbx, %rax")
             output.emit("push %rax")
+        of OpCode.EQUAL:
+            output.emit("pop %rbx")
+            output.emit("pop %rax")
+            output.emit("cmp %rbx, %rax")
+            output.emit("sete %al")
+            output.emit("push %rax")
         of OpCode.DUMP:
             output.emit("pop %rdi")
             output.emit("call porth_dump")

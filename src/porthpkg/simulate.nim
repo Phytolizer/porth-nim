@@ -20,6 +20,11 @@ proc simulateProgram*(program: seq[Operation]) =
             let a = stack.pop()
             stack.add(a - b)
             ip += 1
+        of OpCode.EQUAL:
+            let b = stack.pop()
+            let a = stack.pop()
+            stack.add(int64(a == b))
+            ip += 1
         of OpCode.DUMP:
             let x = stack.pop()
             echo(x)

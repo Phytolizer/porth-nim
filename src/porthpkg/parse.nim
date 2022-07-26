@@ -1,4 +1,10 @@
-from operation import Operation, plus, minus, dump, push
+from operation import
+    Operation,
+    dump,
+    equal,
+    minus,
+    plus,
+    push
 from std/strutils import parseInt
 from token import Token
 import std/strformat
@@ -9,6 +15,8 @@ proc parseTokenAsOp*(token: Token): Operation =
         return plus()
     of "-":
         return minus()
+    of "=":
+        return equal()
     of ".":
         return dump()
     else:

@@ -23,6 +23,11 @@ proc minus*: Operation =
         code: OpCode.MINUS,
     )
 
+proc equal*: Operation =
+    Operation(
+        code: OpCode.EQUAL,
+    )
+
 proc dump*: Operation =
     Operation(
         code: OpCode.DUMP,
