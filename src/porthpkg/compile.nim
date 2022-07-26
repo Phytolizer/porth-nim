@@ -38,6 +38,7 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
       output.emit("pop %rax")
       output.emit("cmp %rbx, %rax")
       output.emit("sete %al")
+      output.emit("movsx %al, %rax")
       output.emit("push %rax")
     of OpCode.DUMP:
       output.emit("pop %rdi")
