@@ -7,7 +7,7 @@ import std/strformat
 import std/options
 import std/os
 
-let dumpFilePath: string = getAppDir() / "csources" / "dump.c"
+let dumpFilePath: string = getCurrentDir() / "csources" / "dump.c"
 
 proc compileProgram*(program: seq[Operation], outFilePath: string) =
   let asmFilePath = outFilePath.changeFileExt("s")
