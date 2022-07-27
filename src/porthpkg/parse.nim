@@ -1,14 +1,6 @@
-from operation import
-  Operation,
-  dump,
-  equal,
-  minus,
-  plus,
-  push,
-  iff,
-  endd
 from std/strutils import parseInt
 from token import Token
+import operation
 import std/strformat
 
 proc parseTokenAsOp*(token: Token): Operation =
