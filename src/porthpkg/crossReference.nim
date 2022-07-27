@@ -1,5 +1,5 @@
-from opcode import OpCode
 from operation import Operation
+import opcode
 import parseError
 import std/options
 

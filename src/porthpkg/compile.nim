@@ -1,7 +1,7 @@
-from opcode import OpCode
 from process import tryRunCmd
 import emitter
 import logging/log
+import opcode
 import operation
 import std/strformat
 import std/options

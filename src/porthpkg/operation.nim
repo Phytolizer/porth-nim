@@ -1,5 +1,5 @@
-from opcode import OpCode
 from token import Token
+import opcode
 import std/options
 import std/strformat
 
