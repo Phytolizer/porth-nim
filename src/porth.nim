@@ -12,7 +12,7 @@ when isMainModule:
       help("Simulate the program")
       arg("input", help="File to process")
       run:
-        let program = loadProgramFromFile(opts.input)
+        let program = loadProgramFromFile(opts.input).crossReferenceBlocks()
         simulateProgram(program)
     command("com"):
       help("Compile the program")
