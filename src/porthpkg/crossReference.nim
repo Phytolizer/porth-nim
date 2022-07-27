@@ -20,6 +20,17 @@ func crossReferenceBlocks*(program: seq[Operation]): seq[Operation] =
       result[ip].elseTarget = result[ifIp].ifTarget
       result[ifIp].ifTarget = some(ip + 1)
       stack.add(ip)
+    of OP_WHILE:
+      stack.add(ip)
+    of OP_DO:
+      if stack.len == 0:
+        raise newParseError(op.token, "no enclosing block")
+      let whileIp = stack.pop()
+      if result[whileIp].code != OP_WHILE:
+        raise newParseError(op.token, "no matching `while`")
+      result[whileIp].whileTarget = some(ip)
+      result[ip].doTarget = some(whileIp)
+      stack.add(ip)
     of OP_END:
       if stack.len == 0:
         raise newParseError(op.token, "no enclosing block")
@@ -27,8 +38,17 @@ func crossReferenceBlocks*(program: seq[Operation]): seq[Operation] =
       case result[blockIp].code
       of OP_IF:
         result[blockIp].ifTarget = some(ip)
+        result[ip].endTarget = some(ip + 1)
       of OP_ELSE:
         result[blockIp].elseTarget = some(ip)
+        result[ip].endTarget = some(ip + 1)
+      of OP_WHILE:
+        result[blockIp].endTarget = some(ip)
+        result[ip].endTarget = some(ip + 1)
+      of OP_DO:
+        let doTarget = result[blockIp].doTarget.get
+        result[ip].endTarget = some(doTarget)
+        result[blockIp].doTarget = some(ip + 1)
       else:
         # this will likely never appear as long as all blocks
         # may be closed by 'end'

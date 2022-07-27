@@ -1,9 +1,14 @@
 type OpCode* = enum
   OP_PUSH
+  OP_DUP
+  OP_POP
   OP_PLUS
   OP_MINUS
   OP_EQUAL
+  OP_GT
   OP_DUMP
   OP_IF
   OP_ELSE
+  OP_WHILE
+  OP_DO
   OP_END

@@ -11,6 +11,11 @@ proc simulateProgram*(program: seq[Operation]) =
     of OP_PUSH:
       stack.add(op.pushValue)
       ip += 1
+    of OP_DUP:
+      stack.add(stack[^1])
+      ip += 1
+    of OP_POP:
+      discard stack.pop()
     of OP_PLUS:
       let b = stack.pop()
       let a = stack.pop()
@@ -26,6 +31,11 @@ proc simulateProgram*(program: seq[Operation]) =
       let a = stack.pop()
       stack.add(int64(a == b))
       ip += 1
+    of OP_GT:
+      let b = stack.pop()
+      let a = stack.pop()
+      stack.add(int64(a > b))
+      ip += 1
     of OP_DUMP:
       let x = stack.pop()
       echo(x)
@@ -40,5 +50,14 @@ proc simulateProgram*(program: seq[Operation]) =
     of OP_ELSE:
       assert op.elseTarget.isSome
       ip = op.elseTarget.get()
+    of OP_WHILE:
+      ip += 1
+    of OP_DO:
+      let a = stack.pop()
+      if a == 0:
+        assert op.doTarget.isSome
+        ip = op.doTarget.get()
+      else:
+        ip += 1
     of OP_END:
       ip += 1
