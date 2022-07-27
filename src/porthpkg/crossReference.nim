@@ -3,7 +3,7 @@ import opcode
 import parseError
 import std/options
 
-func crossReferenceBlocks*(program: seq[Operation]): seq[Operation] =
+func crossReferenceBlocks*(program: sink seq[Operation]): seq[Operation] =
   result = program
   var stack: seq[int] = @[]
   for ip in 0..<result.len:
