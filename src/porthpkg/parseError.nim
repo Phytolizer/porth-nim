@@ -9,4 +9,4 @@ proc newParseError*(token: Token, msg: string): ref ParseError =
   result.token = token
 
 proc `$`*(e: ref ParseError): string =
-  fmt"{e.token.filePath}:{e.token.line}:{e.token.column}: {e.msg}"
+  fmt"{e.token.filePath}:{e.token.line}:{e.token.column}: at `{e.token.text}`: {e.msg}"
