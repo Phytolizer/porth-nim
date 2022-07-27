@@ -1,6 +1,7 @@
 from porthpkg/compile import compileProgram
 from porthpkg/crossReference import crossReferenceBlocks
 from porthpkg/load import loadProgramFromFile
+from porthpkg/logger/logger import nil
 from porthpkg/process import tryRunCmd
 from porthpkg/simulate import simulateProgram
 from std/os import absolutePath
@@ -29,5 +30,5 @@ when isMainModule:
   try:
     p.run(commandLineParams())
   except UsageError:
-    stderr.writeLine getCurrentExceptionMsg()
+    logger.error(getCurrentExceptionMsg())
     quit(1)

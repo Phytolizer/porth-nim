@@ -13,3 +13,4 @@ bin           = @["porth"]
 
 requires "nim >= 1.6.6"
 requires "argparse >= 3.0.0"
+requires "nimcx"
