@@ -12,8 +12,6 @@ type Operation* = object
     ifTarget*: Option[int]
   of OP_ELSE:
     elseTarget*: Option[int]
-  of OP_WHILE:
-    whileTarget*: Option[int]
   of OP_DO:
     doTarget*: Option[int]
   of OP_END:
@@ -87,7 +85,6 @@ proc opWhile*(token: Token): Operation =
   Operation(
     token: token,
     code: OP_WHILE,
-    whileTarget: none[int](),
   )
 
 proc opDo*(token: Token): Operation =

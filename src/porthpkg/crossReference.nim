@@ -28,7 +28,6 @@ func crossReferenceBlocks*(program: seq[Operation]): seq[Operation] =
       let whileIp = stack.pop()
       if result[whileIp].code != OP_WHILE:
         raise newParseError(op.token, "no matching `while`")
-      result[whileIp].whileTarget = some(ip)
       result[ip].doTarget = some(whileIp)
       stack.add(ip)
     of OP_END:
