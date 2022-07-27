@@ -1,8 +1,8 @@
 from porthpkg/compile import compileProgram
+from porthpkg/crossReference import crossReferenceBlocks
 from porthpkg/load import loadProgramFromFile
 from porthpkg/process import tryRunCmd
 from porthpkg/simulate import simulateProgram
-from porthpkg/crossReference import crossReferenceBlocks
 from std/os import absolutePath
 import argparse
 
