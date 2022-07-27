@@ -30,6 +30,8 @@ func crossReferenceBlocks*(program: seq[Operation]): seq[Operation] =
       of OP_ELSE:
         result[blockIp].elseTarget = some(ip)
       else:
+        # this will likely never appear as long as all blocks
+        # may be closed by 'end'
         raise newParseError(op.token, "must close a compatible block")
     else:
       discard
