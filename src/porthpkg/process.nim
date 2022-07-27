@@ -1,14 +1,12 @@
-from std/osproc import
-  startProcess,
-  poParentStreams,
-  poUsePath,
-  waitForExit
 from processError import ProcessError
 from std/strutils import join
+import std/osproc
 import std/strformat
 
 proc tryRunCmd*(cmd: string, args: openArray[string] = []) =
+  let prettyArgs = args.join(" ")
+  echo fmt"[CMD] {cmd} {prettyArgs}"
   let process = startProcess(cmd, args=args, options={poParentStreams, poUsePath})
   let code = process.waitForExit()
   if code != 0:
-    raise newException(ProcessError, fmt"{cmd} {args.join("" "")} failed with code {code}")
+    raise newException(ProcessError, fmt"{cmd} {prettyArgs} failed with code {code}")

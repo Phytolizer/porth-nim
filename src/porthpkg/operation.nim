@@ -10,39 +10,39 @@ type Operation* = object
     ifTarget*: Option[int]
   else: discard
 
-proc push*(value: int64): Operation =
+proc opPush*(value: int64): Operation =
   Operation(
     code: OpCode.OP_PUSH,
     pushValue: value,
   )
 
-proc plus*: Operation =
+proc opPlus*: Operation =
   Operation(
     code: OpCode.OP_PLUS,
   )
 
-proc minus*: Operation =
+proc opMinus*: Operation =
   Operation(
     code: OpCode.OP_MINUS,
   )
 
-proc equal*: Operation =
+proc opEqual*: Operation =
   Operation(
     code: OpCode.OP_EQUAL,
   )
 
-proc dump*: Operation =
+proc opDump*: Operation =
   Operation(
     code: OpCode.OP_DUMP,
   )
 
-proc iff*: Operation =
+proc opIf*: Operation =
   Operation(
     code: OpCode.OP_IF,
     ifTarget: none[int](),
   )
 
-proc endd*: Operation =
+proc opEnd*: Operation =
   Operation(
     code: OpCode.OP_END,
   )

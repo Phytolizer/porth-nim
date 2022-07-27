@@ -10,7 +10,7 @@ let dumpFilePath: string = getAppDir() / "csources" / "dump.c"
 
 proc compileProgram*(program: seq[Operation], outFilePath: string) =
   let asmFilePath = outFilePath.changeFileExt("s")
-  echo fmt"Generating {asmFilePath}"
+  echo fmt"[INFO] Generating {asmFilePath}"
   var output = newEmitter(open(asmFilePath, fmWrite))
 
   output.indent()
