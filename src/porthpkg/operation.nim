@@ -1,8 +1,10 @@
 from opcode import OpCode
+from token import Token
 import std/options
 import std/strformat
 
 type Operation* = object
+  token*: Token
   case code*: OpCode
   of OP_PUSH:
     pushValue*: int64
@@ -12,46 +14,54 @@ type Operation* = object
     elseTarget*: Option[int]
   else: discard
 
-proc opPush*(value: int64): Operation =
+proc opPush*(token: Token, value: int64): Operation =
   Operation(
+    token: token,
     code: OP_PUSH,
     pushValue: value,
   )
 
-proc opPlus*: Operation =
+proc opPlus*(token: Token): Operation =
   Operation(
+    token: token,
     code: OP_PLUS,
   )
 
-proc opMinus*: Operation =
+proc opMinus*(token: Token): Operation =
   Operation(
+    token: token,
     code: OP_MINUS,
   )
 
-proc opEqual*: Operation =
+proc opEqual*(token: Token): Operation =
   Operation(
+    token: token,
     code: OP_EQUAL,
   )
 
-proc opDump*: Operation =
+proc opDump*(token: Token): Operation =
   Operation(
+    token: token,
     code: OP_DUMP,
   )
 
-proc opIf*: Operation =
+proc opIf*(token: Token): Operation =
   Operation(
+    token: token,
     code: OP_IF,
     ifTarget: none[int](),
   )
 
-proc opElse*: Operation =
+proc opElse*(token: Token): Operation =
   Operation(
+    token: token,
     code: OP_ELSE,
     elseTarget: none[int](),
   )
 
-proc opEnd*: Operation =
+proc opEnd*(token: Token): Operation =
   Operation(
+    token: token,
     code: OP_END,
   )
 

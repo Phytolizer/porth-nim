@@ -18,11 +18,11 @@ proc log(level: LogLevel, tag: string, msg: string) =
   cxprint.print(tag, fgr=fg)
   echo fmt"] {msg}"
 
-proc info*(msg: string) =
+proc logInfo*(msg: string) =
   log(LogLevel.Info, "INFO", msg)
 
-proc cmd*(msg: string) =
+proc logCmd*(msg: string) =
   log(LogLevel.Cmd, "CMD", msg)
 
-proc error*(msg: string) =
+proc logError*(msg: string) =
   log(LogLevel.Error, "ERROR", msg)

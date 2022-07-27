@@ -6,23 +6,23 @@ import std/strformat
 proc parseTokenAsOp*(token: Token): Operation =
   case token.text
   of "+":
-    return opPlus()
+    return opPlus(token)
   of "-":
-    return opMinus()
+    return opMinus(token)
   of "=":
-    return opEqual()
+    return opEqual(token)
   of ".":
-    return opDump()
+    return opDump(token)
   of "if":
-    return opIf()
+    return opIf(token)
   of "else":
-    return opElse()
+    return opElse(token)
   of "end":
-    return opEnd()
+    return opEnd(token)
   else:
     try:
       let value = token.text.parseInt()
-      return opPush(value)
+      return opPush(token, value)
     except ValueError:
       stderr.writeLine fmt"{token.filePath}:{token.line}:{token.column}: {getCurrentExceptionMsg()}"
       quit(1)

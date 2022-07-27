@@ -1,7 +1,7 @@
-from logging/log import nil
 from opcode import OpCode
 from process import tryRunCmd
 import emitter
+import logging/log
 import operation
 import std/strformat
 import std/options
@@ -11,7 +11,7 @@ let dumpFilePath: string = getAppDir() / "csources" / "dump.c"
 
 proc compileProgram*(program: seq[Operation], outFilePath: string) =
   let asmFilePath = outFilePath.changeFileExt("s")
-  log.info(fmt"Generating {asmFilePath}")
+  logInfo(fmt"Generating {asmFilePath}")
   var output = newEmitter(open(asmFilePath, fmWrite))
 
   output.indent()

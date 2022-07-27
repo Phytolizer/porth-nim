@@ -1,5 +1,6 @@
 from opcode import OpCode
 from operation import Operation
+import parseError
 import std/options
 
 func crossReferenceBlocks*(program: seq[Operation]): seq[Operation] =
@@ -11,12 +12,17 @@ func crossReferenceBlocks*(program: seq[Operation]): seq[Operation] =
     of OP_IF:
       stack.add(ip)
     of OP_ELSE:
+      if stack.len == 0:
+        raise newParseError(op.token, "`else` without an enclosing block")
       let ifIp = stack.pop()
-      assert result[ifIp].code == OP_IF
+      if result[ifIp].code != OP_IF:
+        raise newParseError(op.token, "`else` without `if`")
       result[ip].elseTarget = result[ifIp].ifTarget
       result[ifIp].ifTarget = some(ip + 1)
       stack.add(ip)
     of OP_END:
+      if stack.len == 0:
+        raise newParseError(op.token, "`end` without an enclosing block")
       let ifIp = stack.pop()
       case result[ifIp].code
       of OP_IF:
@@ -24,6 +30,8 @@ func crossReferenceBlocks*(program: seq[Operation]): seq[Operation] =
       of OP_ELSE:
         result[ifIp].elseTarget = some(ip)
       else:
-        assert false, "`end` must close an `if`/`else` block"
+        raise newParseError(op.token, "`end` must close an `if`/`else` block")
     else:
       discard
+  if stack.len != 0:
+    raise newParseError(result[stack[^1]].token, "unclosed block")
