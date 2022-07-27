@@ -4,7 +4,9 @@ from operation import
   equal,
   minus,
   plus,
-  push
+  push,
+  iff,
+  endd
 from std/strutils import parseInt
 from token import Token
 import std/strformat
@@ -19,6 +21,10 @@ proc parseTokenAsOp*(token: Token): Operation =
     return equal()
   of ".":
     return dump()
+  of "if":
+    return iff()
+  of "end":
+    return endd()
   else:
     try:
       let value = token.text.parseInt()

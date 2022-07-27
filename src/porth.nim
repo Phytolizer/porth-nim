@@ -2,6 +2,7 @@ from porthpkg/compile import compileProgram
 from porthpkg/load import loadProgramFromFile
 from porthpkg/process import tryRunCmd
 from porthpkg/simulate import simulateProgram
+from porthpkg/crossReference import crossReferenceBlocks
 from std/os import absolutePath
 import argparse
 
@@ -20,7 +21,7 @@ when isMainModule:
       arg("input", help="File to process")
       run:
         let output = opts.output_opt.get("output")
-        let program = loadProgramFromFile(opts.input)
+        let program = loadProgramFromFile(opts.input).crossReferenceBlocks()
         compileProgram(program, output)
         if opts.run:
           tryRunCmd(output.absolutePath())

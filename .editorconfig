@@ -8,3 +8,6 @@ insert_final_newline = true
 
 [*.nim]
 indent_size = 2
+
+[*.porth]
+indent_size = 2
