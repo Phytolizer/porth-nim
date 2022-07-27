@@ -56,6 +56,8 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
     of OpCode.OP_END:
       output.emit("# nothing")
 
+  output.emit("")
+  output.emit("# -- end of program --")
   output.emit("mov $0, %rax")
   output.emit("ret")
   output.close()
