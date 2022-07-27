@@ -23,12 +23,12 @@ func crossReferenceBlocks*(program: seq[Operation]): seq[Operation] =
     of OP_END:
       if stack.len == 0:
         raise newParseError(op.token, "no enclosing block")
-      let ifIp = stack.pop()
-      case result[ifIp].code
+      let blockIp = stack.pop()
+      case result[blockIp].code
       of OP_IF:
-        result[ifIp].ifTarget = some(ip)
+        result[blockIp].ifTarget = some(ip)
       of OP_ELSE:
-        result[ifIp].elseTarget = some(ip)
+        result[blockIp].elseTarget = some(ip)
       else:
         raise newParseError(op.token, "must close a compatible block")
     else:
