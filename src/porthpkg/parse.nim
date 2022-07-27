@@ -15,6 +15,8 @@ proc parseTokenAsOp*(token: Token): Operation =
     return opDump()
   of "if":
     return opIf()
+  of "else":
+    return opElse()
   of "end":
     return opEnd()
   else:

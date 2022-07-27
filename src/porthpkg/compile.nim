@@ -28,33 +28,35 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
     output.emit(fmt".porth_addr_{ip}:")
     output.indent()
     case op.code
-    of OpCode.OP_PUSH:
+    of OP_PUSH:
       output.emit(fmt"push ${op.pushValue}")
-    of OpCode.OP_PLUS:
+    of OP_PLUS:
       output.emit("pop %rbx")
       output.emit("pop %rax")
       output.emit("add %rbx, %rax")
       output.emit("push %rax")
-    of OpCode.OP_MINUS:
+    of OP_MINUS:
       output.emit("pop %rbx")
       output.emit("pop %rax")
       output.emit("sub %rbx, %rax")
       output.emit("push %rax")
-    of OpCode.OP_EQUAL:
+    of OP_EQUAL:
       output.emit("pop %rbx")
       output.emit("pop %rax")
       output.emit("cmp %rbx, %rax")
       output.emit("sete %al")
       output.emit("movsx %al, %rax")
       output.emit("push %rax")
-    of OpCode.OP_DUMP:
+    of OP_DUMP:
       output.emit("pop %rdi")
       output.emit("call porth_dump")
-    of OpCode.OP_IF:
+    of OP_IF:
       output.emit("pop %rax")
       output.emit("cmp $0, %rax")
       output.emit(fmt"je .porth_addr_{op.ifTarget.get}")
-    of OpCode.OP_END:
+    of OP_ELSE:
+      output.emit(fmt"jmp .porth_addr_{op.elseTarget.get}")
+    of OP_END:
       output.emit("# nothing")
 
   output.emit("")
