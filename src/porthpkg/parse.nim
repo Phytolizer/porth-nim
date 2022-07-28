@@ -13,6 +13,8 @@ proc parseTokenAsOp*(token: Token): Operation =
     return opDrop(token)
   of "swap":
     return opSwap(token)
+  of "over":
+    return opOver(token)
   of "mem":
     return opMem(token)
   of ",":

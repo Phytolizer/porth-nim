@@ -49,6 +49,12 @@ proc opSwap*(token: Token): Operation =
     code: OP_SWAP,
   )
 
+proc opOver*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_OVER,
+  )
+
 proc opMem*(token: Token): Operation =
   Operation(
     token: token,
