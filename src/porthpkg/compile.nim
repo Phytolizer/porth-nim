@@ -45,6 +45,11 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
       output.emit("pushq %rbx")
     of OP_POP:
       output.emit("popq %rax")
+    of OP_SWAP:
+      output.emit("popq %rbx")
+      output.emit("popq %rax")
+      output.emit("pushq %rbx")
+      output.emit("pushq %rax")
     of OP_MEM:
       output.emit("leaq porth_memory(%rip), %rax")
       output.emit("pushq %rax")

@@ -3,6 +3,7 @@ type OpCode* = enum
   OP_DUP
   OP_2DUP
   OP_POP
+  OP_SWAP
   OP_MEM
   OP_LOAD
   OP_STORE

@@ -38,6 +38,12 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
     of OP_POP:
       discard stack.pop()
       ip += 1
+    of OP_SWAP:
+      let b = stack.pop()
+      let a = stack.pop()
+      stack.add(b)
+      stack.add(a)
+      ip += 1
     of OP_MEM:
       stack.add(0)
       ip += 1

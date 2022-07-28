@@ -5,3 +5,6 @@
 // dup
 420 dup dup dump dump dump
 69 dup dump dup dump dump
+
+// swap
+69 420 swap dump dump
