@@ -11,10 +11,14 @@ proc parseTokenAsOp*(token: Token): Operation =
     return opPop(token)
   of "mem":
     return opMem(token)
-  of ".":
-    return opLoad(token)
   of ",":
+    return opLoad(token)
+  of ".":
     return opStore(token)
+  of "syscall1":
+    return opSyscall1(token)
+  of "syscall3":
+    return opSyscall3(token)
   of "+":
     return opPlus(token)
   of "-":

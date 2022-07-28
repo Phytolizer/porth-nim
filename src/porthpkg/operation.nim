@@ -55,6 +55,18 @@ proc opStore*(token: Token): Operation =
     code: OP_STORE,
   )
 
+proc opSyscall1*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_SYSCALL1,
+  )
+
+proc opSyscall3*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_SYSCALL3,
+  )
+
 proc opPlus*(token: Token): Operation =
   Operation(
     token: token,

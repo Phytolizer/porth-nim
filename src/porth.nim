@@ -2,11 +2,11 @@ from porthpkg/compile import compileProgram
 from porthpkg/crossReference import crossReferenceBlocks
 from porthpkg/load import loadProgramFromFile
 from porthpkg/process import tryRunCmd
-from porthpkg/simulate import simulateProgram
 from std/os import absolutePath
 import argparse
 import porthpkg/logging/log
 import porthpkg/parseError
+import porthpkg/simulate
 import std/streams
 
 let p = newParser:
@@ -35,6 +35,9 @@ proc run*(
         simulateProgram(program, output=output)
       except ParseError as e:
         logError($e)
+        quit(1)
+      except SimulationError:
+        logError(getCurrentExceptionMsg())
         quit(1)
     of "com":
       let com = opts.com.get

@@ -1,15 +1,25 @@
+import debug
 import mem
+import notImplemented
 import opcode
 import operation
 import std/options
 import std/streams
+import std/strformat
+import strconv
+
+type SimulationError* = object of ValueError
 
 proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(stdout)) =
   var ip = 0
   var stack: seq[int64] = @[]
-  var memory = newSeq[int64](MEM_CAPACITY)
+  var memory = newSeq[byte](MEM_CAPACITY)
   while ip < program.len:
     let op = program[ip]
+    when debugging:
+      echo "----"
+      echo fmt"stack: {stack}"
+      echo $op
     case op.code
     of OP_PUSH:
       stack.add(op.pushValue)
@@ -25,12 +35,35 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
       ip += 1
     of OP_LOAD:
       let address = stack.pop()
-      stack.add(memory[address])
+      stack.add(int64(memory[address]))
       ip += 1
     of OP_STORE:
       let value = stack.pop()
       let address = stack.pop()
-      memory[address] = value
+      memory[address] = cast[byte](value)
+      ip += 1
+    of OP_SYSCALL1:
+      raise newNotImplementedDefect()
+    of OP_SYSCALL3:
+      let syscallNumber = stack.pop()
+      let arg1 = stack.pop()
+      let arg2 = stack.pop()
+      let arg3 = stack.pop()
+      case syscallNumber
+      of 1:
+        let fd = arg1
+        let buf = arg2
+        let count = arg3
+        let s = memory[buf..<buf + count].toString
+        case fd
+        of 1:
+          output.write(s)
+        of 2:
+          stderr.write(s)
+        else:
+          raise newException(SimulationError, fmt"unknown file descriptor {fd}")
+      else:
+        raise newException(SimulationError, fmt"unknown syscall {syscallNumber}")
       ip += 1
     of OP_PLUS:
       let b = stack.pop()

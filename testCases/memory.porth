@@ -1,2 +1,2 @@
-mem 1 + 69 ,
-mem 1 + . dump
+mem 1 + 69 .
+mem 1 + , dump

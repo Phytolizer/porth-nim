@@ -5,6 +5,8 @@ type OpCode* = enum
   OP_MEM
   OP_LOAD
   OP_STORE
+  OP_SYSCALL1
+  OP_SYSCALL3
   OP_PLUS
   OP_MINUS
   OP_EQUAL

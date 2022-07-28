@@ -38,17 +38,26 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
     of OP_POP:
       output.emit("popq %rax")
     of OP_MEM:
-      output.emit("pushq $0")
+      output.emit("leaq porth_memory(%rip), %rax")
+      output.emit("pushq %rax")
     of OP_LOAD:
       output.emit("popq %rbx")
-      output.emit("movq porth_memory@GOTPCREL(%rip), %rax")
-      output.emit("movzbq (%rax,%rbx), %rax")
+      output.emit("movzbq (%rbx), %rax")
       output.emit("pushq %rax")
     of OP_STORE:
       output.emit("popq %rax")
       output.emit("popq %rbx")
-      output.emit("movq porth_memory@GOTPCREL(%rip), %rcx")
-      output.emit("movq %rax, (%rcx, %rbx)")
+      output.emit("movq %rax, (%rbx)")
+    of OP_SYSCALL1:
+      output.emit("popq %rax")
+      output.emit("popq %rdi")
+      output.emit("syscall")
+    of OP_SYSCALL3:
+      output.emit("popq %rax")
+      output.emit("popq %rdi")
+      output.emit("popq %rsi")
+      output.emit("popq %rdx")
+      output.emit("syscall")
     of OP_PLUS:
       output.emit("popq %rbx")
       output.emit("popq %rax")
