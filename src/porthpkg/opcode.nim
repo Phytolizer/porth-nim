@@ -2,7 +2,7 @@ type OpCode* = enum
   OP_PUSH
   OP_DUP
   OP_2DUP
-  OP_POP
+  OP_DROP
   OP_SWAP
   OP_MEM
   OP_LOAD

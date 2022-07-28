@@ -37,10 +37,10 @@ proc op2dup*(token: Token): Operation =
     code: OP_2DUP,
   )
 
-proc opPop*(token: Token): Operation =
+proc opDrop*(token: Token): Operation =
   Operation(
     token: token,
-    code: OP_POP,
+    code: OP_DROP,
   )
 
 proc opSwap*(token: Token): Operation =

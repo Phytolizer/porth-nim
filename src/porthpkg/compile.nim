@@ -43,7 +43,7 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
       output.emit("pushq %rbx")
       output.emit("pushq %rax")
       output.emit("pushq %rbx")
-    of OP_POP:
+    of OP_DROP:
       output.emit("popq %rax")
     of OP_SWAP:
       output.emit("popq %rbx")

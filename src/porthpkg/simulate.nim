@@ -35,7 +35,7 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
       stack.add(a)
       stack.add(b)
       ip += 1
-    of OP_POP:
+    of OP_DROP:
       discard stack.pop()
       ip += 1
     of OP_SWAP:

@@ -9,8 +9,8 @@ proc parseTokenAsOp*(token: Token): Operation =
     return opDup(token)
   of "2dup":
     return op2dup(token)
-  of "pop":
-    return opPop(token)
+  of "drop":
+    return opDrop(token)
   of "swap":
     return opSwap(token)
   of "mem":
