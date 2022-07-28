@@ -1,1 +1,1 @@
-const debugging* = false;
+var debugging* = false;

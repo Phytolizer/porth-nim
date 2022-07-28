@@ -1,4 +1,5 @@
 import debug
+import logging/log
 import mem
 import notImplemented
 import opcode
@@ -16,10 +17,6 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
   var memory = newSeq[byte](MEM_CAPACITY)
   while ip < program.len:
     let op = program[ip]
-    when debugging:
-      echo "----"
-      echo fmt"stack: {stack}"
-      echo $op
     case op.code
     of OP_PUSH:
       stack.add(op.pushValue)
@@ -138,3 +135,7 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
     of OP_END:
       assert op.endTarget.isSome
       ip = op.endTarget.get()
+
+    if debugging:
+      logInfo("Memory dump")
+      echo memory[0..<20]

@@ -1,5 +1,6 @@
 from porthpkg/compile import compileProgram
 from porthpkg/crossReference import crossReferenceBlocks
+from porthpkg/debug import nil
 from porthpkg/load import loadProgramFromFile
 from porthpkg/process import tryRunCmd
 from std/os import absolutePath
@@ -12,6 +13,7 @@ import porthpkg/simulate
 import std/streams
 
 let p = newParser:
+  flag("-g", "--debug", help="Enable debug mode")
   command("sim"):
     help("Simulate the program")
     arg("input", help="File to process")
@@ -31,6 +33,9 @@ proc run*(
   log.silent = silent
   try:
     let opts = p.parse(args)
+    if opts.debug:
+      logInfo("Debug mode enabled")
+      debug.debugging = true
     case opts.argparse_command
     of "sim":
       try:
