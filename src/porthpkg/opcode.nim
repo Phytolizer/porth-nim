@@ -18,6 +18,10 @@ type OpCode* = enum
   OP_EQUAL
   OP_GT
   OP_LT
+  OP_SHR
+  OP_SHL
+  OP_BOR
+  OP_BAND
   OP_DUMP
   OP_IF
   OP_ELSE

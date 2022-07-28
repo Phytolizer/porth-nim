@@ -131,6 +131,26 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
       output.emit("setl %al")
       output.emit("movsx %al, %rax")
       output.emit("pushq %rax")
+    of OP_SHR:
+      output.emit("popq %rbx")
+      output.emit("popq %rax")
+      output.emit("shrq %rbx")
+      output.emit("pushq %rax")
+    of OP_SHL:
+      output.emit("popq %rbx")
+      output.emit("popq %rax")
+      output.emit("shlq %rbx")
+      output.emit("pushq %rax")
+    of OP_BOR:
+      output.emit("popq %rbx")
+      output.emit("popq %rax")
+      output.emit("orq %rbx, %rax")
+      output.emit("pushq %rax")
+    of OP_BAND:
+      output.emit("popq %rbx")
+      output.emit("popq %rax")
+      output.emit("andq %rbx, %rax")
+      output.emit("pushq %rax")
     of OP_DUMP:
       output.emit("popq %rdi")
       output.emit("call porth_dump")

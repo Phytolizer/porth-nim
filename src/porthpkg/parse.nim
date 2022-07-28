@@ -41,6 +41,14 @@ proc parseTokenAsOp*(token: Token): Operation =
     return opGt(token)
   of "<":
     return opLt(token)
+  of "shr":
+    return opShr(token)
+  of "shl":
+    return opShl(token)
+  of "bor":
+    return opBor(token)
+  of "band":
+    return opBand(token)
   of "dump":
     return opDump(token)
   of "if":

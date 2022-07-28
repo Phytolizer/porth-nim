@@ -109,6 +109,26 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
       let a = stack.pop()
       stack.add(int64(a < b))
       ip += 1
+    of OP_SHR:
+      let b = stack.pop()
+      let a = stack.pop()
+      stack.add(a shr b)
+      ip += 1
+    of OP_SHL:
+      let b = stack.pop()
+      let a = stack.pop()
+      stack.add(a shl b)
+      ip += 1
+    of OP_BOR:
+      let b = stack.pop()
+      let a = stack.pop()
+      stack.add(a or b)
+      ip += 1
+    of OP_BAND:
+      let b = stack.pop()
+      let a = stack.pop()
+      stack.add(a and b)
+      ip += 1
     of OP_DUMP:
       let x = stack.pop()
       output.writeLine(x)

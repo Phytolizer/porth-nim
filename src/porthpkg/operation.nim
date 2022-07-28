@@ -133,6 +133,30 @@ proc opLt*(token: Token): Operation =
     code: OP_LT,
   )
 
+proc opShr*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_SHR,
+  )
+
+proc opShl*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_SHL,
+  )
+
+proc opBor*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_BOR,
+  )
+
+proc opBand*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_BAND,
+  )
+
 proc opDump*(token: Token): Operation =
   Operation(
     token: token,
