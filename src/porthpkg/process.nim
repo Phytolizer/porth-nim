@@ -1,6 +1,6 @@
-from processError import ProcessError
 from std/strutils import join
 import logging/log
+import processError
 import std/osproc
 import std/streams
 import std/strformat
@@ -12,5 +12,5 @@ proc tryRunCmd*(cmd: string, args: openArray[string] = [], output: Stream = newF
   let code = process.waitForExit()
   if code != 0:
     output.write(process.outputStream.readAll)
-    raise newException(ProcessError, fmt"{cmd} {prettyArgs} failed with code {code}")
+    raise newProcessError(code, fmt"{cmd} {prettyArgs} failed with code {code}")
   output.write(process.outputStream.readAll)

@@ -4,6 +4,7 @@ import logging/log
 import mem
 import opcode
 import operation
+import processError
 import std/strformat
 import std/options
 import std/os
@@ -144,4 +145,8 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
   output.emit(fmt".zero {MEM_CAPACITY}")
   output.close()
 
-  tryRunCmd("gcc", ["-nostdlib", "-O2", "-o", outFilePath, asmFilePath, dumpFilePath, "-lc"])
+  try:
+    tryRunCmd("gcc", ["-nostdlib", "-O2", "-o", outFilePath, asmFilePath, dumpFilePath, "-lc"])
+  except ProcessError as e:
+    logError(e.msg)
+    quit(e.code)

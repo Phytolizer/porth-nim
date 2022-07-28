@@ -6,6 +6,7 @@ from std/os import absolutePath
 import argparse
 import porthpkg/logging/log
 import porthpkg/parseError
+import porthpkg/processError
 import porthpkg/simulate
 import std/streams
 
@@ -49,7 +50,11 @@ proc run*(
         logError($e)
         quit(1)
       if com.run:
-        tryRunCmd(outputParam.absolutePath(), output=output)
+        try:
+          tryRunCmd(outputParam.absolutePath(), output=output)
+        except ProcessError as e:
+          logError(e.msg)
+          quit(e.code)
     else:
       discard
   except UsageError:
