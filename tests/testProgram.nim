@@ -1,8 +1,8 @@
 from porth import run
-import porthpkg/logging/log
 import std/os
 import std/sequtils
 import std/streams
+import std/strformat
 import std/strutils
 import std/unittest
 
@@ -20,7 +20,7 @@ suite "output is similar":
       output.setPosition(0)
       let comOutput = output.readAll()
       if simOutput != comOutput:
-        logError("Output discrepancy between simulation and compilation")
+        stderr.writeLine(fmt"Output discrepancy between simulation and compilation in {testFile}")
         echo "  Simulation output:"
         echo simOutput.indent(4)
         echo "  Compilation output:"

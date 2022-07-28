@@ -48,7 +48,7 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
     of OP_STORE:
       output.emit("popq %rax")
       output.emit("popq %rbx")
-      output.emit("movq %rax, (%rbx)")
+      output.emit("movb %al, (%rbx)")
     of OP_SYSCALL1:
       output.emit("popq %rax")
       output.emit("popq %rdi")
@@ -102,8 +102,8 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
       output.emit("popq %rbx")
       output.emit("popq %rax")
       output.emit("cmpq %rbx, %rax")
-      output.emit("sete %aq")
-      output.emit("movsx %aq, %rax")
+      output.emit("sete %al")
+      output.emit("movsx %al, %rax")
       output.emit("pushq %rax")
     of OP_GT:
       output.emit("popq %rbx")
