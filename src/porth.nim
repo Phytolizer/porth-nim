@@ -19,7 +19,12 @@ let p = newParser:
     flag("-r", "--run", help="Run the compiled program")
     arg("input", help="File to process")
 
-proc run*(args: seq[string], output: Stream = newFileStream(stdout)) =
+proc run*(
+  args: seq[string],
+  output: Stream = newFileStream(stdout),
+  silent: bool = false
+) =
+  log.silent = silent
   try:
     let opts = p.parse(args)
     case opts.argparse_command

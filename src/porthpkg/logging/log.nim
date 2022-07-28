@@ -1,6 +1,8 @@
 import nimcx
 import std/strformat
 
+var silent* = false
+
 type LogLevel {.pure.} = enum
   Info
   Cmd
@@ -13,6 +15,8 @@ const LOG_LEVEL_COLORS = [
 ]
 
 proc log(level: LogLevel, tag: string, msg: string) =
+  if silent:
+    return
   let fg = getFg(LOG_LEVEL_COLORS[level])
   stdout.write "["
   cxprint.print(tag, fgr=fg)

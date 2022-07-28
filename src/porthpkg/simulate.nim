@@ -1,3 +1,4 @@
+import mem
 import opcode
 import operation
 import std/options
@@ -6,6 +7,7 @@ import std/streams
 proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(stdout)) =
   var ip = 0
   var stack: seq[int64] = @[]
+  var memory = newSeq[int64](MEM_CAPACITY)
   while ip < program.len:
     let op = program[ip]
     case op.code
@@ -17,6 +19,18 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
       ip += 1
     of OP_POP:
       discard stack.pop()
+      ip += 1
+    of OP_MEM:
+      stack.add(0)
+      ip += 1
+    of OP_LOAD:
+      let address = stack.pop()
+      stack.add(memory[address])
+      ip += 1
+    of OP_STORE:
+      let value = stack.pop()
+      let address = stack.pop()
+      memory[address] = value
       ip += 1
     of OP_PLUS:
       let b = stack.pop()

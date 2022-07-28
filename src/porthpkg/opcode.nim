@@ -2,6 +2,9 @@ type OpCode* = enum
   OP_PUSH
   OP_DUP
   OP_POP
+  OP_MEM
+  OP_LOAD
+  OP_STORE
   OP_PLUS
   OP_MINUS
   OP_EQUAL

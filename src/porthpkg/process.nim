@@ -11,5 +11,6 @@ proc tryRunCmd*(cmd: string, args: openArray[string] = [], output: Stream = newF
   let process = startProcess(cmd, args=args, options={poStdErrToStdOut, poUsePath})
   let code = process.waitForExit()
   if code != 0:
+    output.write(process.outputStream.readAll)
     raise newException(ProcessError, fmt"{cmd} {prettyArgs} failed with code {code}")
   output.write(process.outputStream.readAll)

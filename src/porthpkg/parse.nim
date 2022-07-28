@@ -9,6 +9,12 @@ proc parseTokenAsOp*(token: Token): Operation =
     return opDup(token)
   of "pop":
     return opPop(token)
+  of "mem":
+    return opMem(token)
+  of ".":
+    return opLoad(token)
+  of ",":
+    return opStore(token)
   of "+":
     return opPlus(token)
   of "-":
@@ -17,7 +23,7 @@ proc parseTokenAsOp*(token: Token): Operation =
     return opEqual(token)
   of ">":
     return opGt(token)
-  of ".":
+  of "dump":
     return opDump(token)
   of "if":
     return opIf(token)

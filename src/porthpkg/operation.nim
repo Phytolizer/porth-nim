@@ -37,6 +37,24 @@ proc opPop*(token: Token): Operation =
     code: OP_POP,
   )
 
+proc opMem*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_MEM,
+  )
+
+proc opLoad*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_LOAD,
+  )
+
+proc opStore*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_STORE,
+  )
+
 proc opPlus*(token: Token): Operation =
   Operation(
     token: token,
