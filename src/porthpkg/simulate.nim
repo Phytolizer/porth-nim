@@ -44,6 +44,8 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
       ip += 1
     of OP_SYSCALL1:
       raise newNotImplementedDefect()
+    of OP_SYSCALL2:
+      raise newNotImplementedDefect()
     of OP_SYSCALL3:
       let syscallNumber = stack.pop()
       let arg1 = stack.pop()
@@ -65,6 +67,12 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
       else:
         raise newException(SimulationError, fmt"unknown syscall {syscallNumber}")
       ip += 1
+    of OP_SYSCALL4:
+      raise newNotImplementedDefect()
+    of OP_SYSCALL5:
+      raise newNotImplementedDefect()
+    of OP_SYSCALL6:
+      raise newNotImplementedDefect()
     of OP_PLUS:
       let b = stack.pop()
       let a = stack.pop()

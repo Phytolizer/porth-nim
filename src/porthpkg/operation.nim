@@ -61,10 +61,34 @@ proc opSyscall1*(token: Token): Operation =
     code: OP_SYSCALL1,
   )
 
+proc opSyscall2*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_SYSCALL2,
+  )
+
 proc opSyscall3*(token: Token): Operation =
   Operation(
     token: token,
     code: OP_SYSCALL3,
+  )
+
+proc opSyscall4*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_SYSCALL4,
+  )
+
+proc opSyscall5*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_SYSCALL5,
+  )
+
+proc opSyscall6*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_SYSCALL6,
   )
 
 proc opPlus*(token: Token): Operation =

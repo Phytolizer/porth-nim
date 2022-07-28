@@ -17,8 +17,16 @@ proc parseTokenAsOp*(token: Token): Operation =
     return opStore(token)
   of "syscall1":
     return opSyscall1(token)
+  of "syscall2":
+    return opSyscall2(token)
   of "syscall3":
     return opSyscall3(token)
+  of "syscall4":
+    return opSyscall4(token)
+  of "syscall5":
+    return opSyscall5(token)
+  of "syscall6":
+    return opSyscall6(token)
   of "+":
     return opPlus(token)
   of "-":
