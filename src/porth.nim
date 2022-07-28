@@ -42,7 +42,7 @@ proc run*(
         quit(1)
     of "com":
       let com = opts.com.get
-      let outputParam = com.output_opt.get("output")
+      let outputParam = com.output_opt.get(com.input.changeFileExt(""))
       try:
         let program = loadProgramFromFile(com.input).crossReferenceBlocks()
         compileProgram(program, outputParam)
