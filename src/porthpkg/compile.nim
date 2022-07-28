@@ -16,10 +16,10 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
   var output = newEmitter(open(asmFilePath, fmWrite))
 
   output.indent()
-  output.emit(".global main")
+  output.emit(".global _start")
   output.emit(".text")
   output.dedent()
-  output.emit("main:")
+  output.emit("_start:")
   output.indent()
 
   for ip in 0..<program.len:
@@ -96,8 +96,9 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
   output.emit(fmt".porth_addr_{program.len}:")
   output.indent()
   output.emit("# -- end of program --")
-  output.emit("movq $0, %rax")
-  output.emit("ret")
+  output.emit("movq $60, %rax")
+  output.emit("movq $0, %rdi")
+  output.emit("syscall")
   output.emit(".data")
   output.dedent()
   output.emit("porth_memory:")
@@ -105,4 +106,4 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
   output.emit(fmt".zero {MEM_CAPACITY}")
   output.close()
 
-  tryRunCmd("gcc", ["-O2", "-o", outFilePath, asmFilePath, dumpFilePath])
+  tryRunCmd("gcc", ["-nostdlib", "-O2", "-o", outFilePath, asmFilePath, dumpFilePath, "-lc"])
