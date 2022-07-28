@@ -7,6 +7,7 @@ import argparse
 import porthpkg/logging/log
 import porthpkg/parseError
 import porthpkg/processError
+import porthpkg/record
 import porthpkg/simulate
 import std/streams
 
@@ -19,6 +20,8 @@ let p = newParser:
     option("-o", "--output", help="Output file")
     flag("-r", "--run", help="Run the compiled program")
     arg("input", help="File to process")
+  command("record"):
+    help("Record expected output for test cases")
 
 proc run*(
   args: seq[string],
@@ -55,6 +58,8 @@ proc run*(
         except ProcessError as e:
           logError(e.msg)
           quit(e.code)
+    of "record":
+      recordTestOutput()
     else:
       discard
   except UsageError:
