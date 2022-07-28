@@ -11,11 +11,14 @@ proc lexLine(filePath: string, lineNumber: int, line: string): seq[Token] =
     var colEnd = line.find(spacePattern, col)
     if colEnd == -1:
       colEnd = line.len
+    let text = line[col..<colEnd]
+    if text == "//":
+      break
     result.add(Token(
       filePath: filePath,
       line: lineNumber + 1,
       column: col + 1,
-      text: line[col..<colEnd],
+      text: text,
     ))
     col = line.find(nonSpacePattern, colEnd)
 
