@@ -7,6 +7,8 @@ proc parseTokenAsOp*(token: Token): Operation =
   case token.text
   of "dup":
     return opDup(token)
+  of "2dup":
+    return op2dup(token)
   of "pop":
     return opPop(token)
   of "mem":
@@ -35,6 +37,8 @@ proc parseTokenAsOp*(token: Token): Operation =
     return opEqual(token)
   of ">":
     return opGt(token)
+  of "<":
+    return opLt(token)
   of "dump":
     return opDump(token)
   of "if":

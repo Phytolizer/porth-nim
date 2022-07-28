@@ -31,6 +31,12 @@ proc opDup*(token: Token): Operation =
     code: OP_DUP,
   )
 
+proc op2dup*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_2DUP,
+  )
+
 proc opPop*(token: Token): Operation =
   Operation(
     token: token,
@@ -113,6 +119,12 @@ proc opGt*(token: Token): Operation =
   Operation(
     token: token,
     code: OP_GT,
+  )
+
+proc opLt*(token: Token): Operation =
+  Operation(
+    token: token,
+    code: OP_LT,
   )
 
 proc opDump*(token: Token): Operation =

@@ -36,6 +36,13 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
       output.emit("popq %rax")
       output.emit("pushq %rax")
       output.emit("pushq %rax")
+    of OP_2DUP:
+      output.emit("popq %rbx")
+      output.emit("popq %rax")
+      output.emit("pushq %rax")
+      output.emit("pushq %rbx")
+      output.emit("pushq %rax")
+      output.emit("pushq %rbx")
     of OP_POP:
       output.emit("popq %rax")
     of OP_MEM:
@@ -110,6 +117,13 @@ proc compileProgram*(program: seq[Operation], outFilePath: string) =
       output.emit("popq %rax")
       output.emit("cmpq %rbx, %rax")
       output.emit("setg %al")
+      output.emit("movsx %al, %rax")
+      output.emit("pushq %rax")
+    of OP_LT:
+      output.emit("popq %rbx")
+      output.emit("popq %rax")
+      output.emit("cmpq %rbx, %rax")
+      output.emit("setl %al")
       output.emit("movsx %al, %rax")
       output.emit("pushq %rax")
     of OP_DUMP:

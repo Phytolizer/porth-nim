@@ -27,6 +27,14 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
     of OP_DUP:
       stack.add(stack[^1])
       ip += 1
+    of OP_2DUP:
+      let b = stack.pop()
+      let a = stack.pop()
+      stack.add(a)
+      stack.add(b)
+      stack.add(a)
+      stack.add(b)
+      ip += 1
     of OP_POP:
       discard stack.pop()
       ip += 1
@@ -92,6 +100,11 @@ proc simulateProgram*(program: seq[Operation], output: Stream = newFileStream(st
       let b = stack.pop()
       let a = stack.pop()
       stack.add(int64(a > b))
+      ip += 1
+    of OP_LT:
+      let b = stack.pop()
+      let a = stack.pop()
+      stack.add(int64(a < b))
       ip += 1
     of OP_DUMP:
       let x = stack.pop()
